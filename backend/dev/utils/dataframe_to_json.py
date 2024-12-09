@@ -1,4 +1,3 @@
-import json
 import pandas as pd
 
 def dataFrameToJson(dataframe: pd.DataFrame, orient='records') -> dict:

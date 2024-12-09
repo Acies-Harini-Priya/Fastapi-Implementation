@@ -1,5 +1,4 @@
 import psycopg2
-from psycopg2 import sql
 import pandas as pd
 
 class BaseExecutor:
@@ -47,6 +46,104 @@ class BaseExecutor:
             return None, f"Database error: {e}"
         finally:
             # Ensure resources are cleaned up
+            if cursor:
+                cursor.close()
+            if connection:
+                connection.close()
+    
+    def executeInsert(self, query, values=None):
+        """
+        Executes an INSERT query and returns the number of rows affected.
+
+        Args:
+            query (sql.SQL): The query to be executed.
+            values (tuple): Parameters for the query.
+
+        Returns:
+            tuple: (rows_affected, message)
+        """
+        connection = None
+        cursor = None
+        try:
+            connection = psycopg2.connect(**self.db_config)
+            cursor = connection.cursor()
+            cursor.execute(query, values)
+
+            connection.commit()
+
+            rows_affected = cursor.rowcount
+            return rows_affected, "Insert query executed successfully."
+        except psycopg2.Error as e:
+            if connection:
+                connection.rollback()
+            return 0, f"Database error: {e}"
+        finally:
+            if cursor:
+                cursor.close()
+            if connection:
+                connection.close()
+    
+    def executeUpdate(self, query, values=None):
+        """
+        Executes an UPDATE query in the database.
+
+        Args:
+            query (sql.SQL): The UPDATE query to execute.
+            values (tuple): The parameters for the query.
+
+        Returns:
+            tuple: (rows_affected, message)
+        """
+        connection = None
+        cursor = None
+        try:
+            connection = psycopg2.connect(**self.db_config)
+            cursor = connection.cursor()
+
+            cursor.execute(query, values)
+            rows_affected = cursor.rowcount  
+
+            connection.commit()
+
+            return rows_affected, "Query executed successfully."
+        except psycopg2.Error as e:
+            if connection:
+                connection.rollback()
+            return 0, f"Database error: {e}"
+        finally:
+            if cursor:
+                cursor.close()
+            if connection:
+                connection.close()
+    
+    def executeDelete(self, query, values=None):
+        """
+        Executes a DELETE query in the database.
+
+        Args:
+            query (sql.SQL): The DELETE query to execute.
+            values (tuple): The parameters for the query.
+
+        Returns:
+            tuple: (rows_affected, message)
+        """
+        connection = None
+        cursor = None
+        try:
+            connection = psycopg2.connect(**self.db_config)
+            cursor = connection.cursor()
+
+            cursor.execute(query, (values,))
+            rows_affected = cursor.rowcount  
+
+            connection.commit()
+
+            return rows_affected, "Query executed successfully."
+        except psycopg2.Error as e:
+            if connection:
+                connection.rollback()
+            return 0, f"Database error: {e}"
+        finally:
             if cursor:
                 cursor.close()
             if connection:
