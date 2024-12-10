@@ -22,6 +22,16 @@ app = FastAPI()
 #     allow_headers=['*'],
 # )
 
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Replace "*" with specific domains if needed
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(router=interns_info_router)
     
 if __name__ == "__main__":

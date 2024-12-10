@@ -40,11 +40,11 @@ async def fetchDetailsByName(body: AddNewInternBody):
     return response_data
 
 ## put
-@interns_info_router.put("/updateInternDetails/{id}")
-async def updateInternDetails(id: int, body: UpdateInternBody):
-    print(f"updateInternDetails started with ID: {id} and request data: {body}")
-    response_data = interns_info.updateInternDetailsById(id, body)
-    print(f"updateInternDetails ended with ID: {id} and request data: {body}")
+@interns_info_router.put("/updateInternDetails/{name}")
+async def updateInternDetails(name: str, body: UpdateInternBody):
+    print(f"updateInternDetails started with ID: {name} and request data: {body}")
+    response_data = interns_info.updateInternDetailsById(name, body)
+    print(f"updateInternDetails ended with ID: {name} and request data: {body}")
     return response_data
 
 ## patch - partial update
@@ -56,9 +56,9 @@ async def updateInternDetails(id: int, body: UpdateInternBody):
 #     return response_data
 
 ## delete
-@interns_info_router.delete("/deleteIntern/{id}")
-async def deleteIntern(id:int):
-    print(f"deleteIntern started with request data {id}")
-    response_data = interns_info.deleteInternById(id)
-    print(f"deleteIntern ended with request data {id}")
+@interns_info_router.delete("/deleteIntern/{name}")
+async def deleteIntern(name:str):
+    print(f"deleteIntern started with request data {name}")
+    response_data = interns_info.deleteInternById(name)
+    print(f"deleteIntern ended with request data {name}")
     return response_data

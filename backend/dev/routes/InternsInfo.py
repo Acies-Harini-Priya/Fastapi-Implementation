@@ -74,11 +74,10 @@ class InternsInfo:
         except Exception as e:
             return 500, {"message": f"An error occurred: {str(e)}"}
 
-    def updateInternDetailsById(self, id: int, body: UpdateInternBody):
+    def updateInternDetailsById(self, name: str, body: UpdateInternBody):
         query = sql.SQL(f"""
             update fastapi_demo.interns_details
             set 
-                name = %s,
                 mail_id = %s,
                 dob = %s,
                 college_name = %s,
@@ -86,14 +85,16 @@ class InternsInfo:
                 hobbies = %s,
                 updated_by = %s,
                 updated_at = %s
-            where id = CAST(%s AS BIGINT)
+            where name = %s
         """)
 
-        values = (
-            body.name, body.mail_id, body.dob, body.college_name,
+        values = (body.mail_id, body.dob, body.college_name,
             body.description, body.hobbies, body.updated_by,
-            body.updated_at, id,
+            body.updated_at, name,
         )
+        print(f"Executing query: {query}")
+        print(f"With values: {values}")
+
         try:
             rows_affected, message = base_executor.executeUpdate(query=query, values=values)
             if rows_affected == 0:
@@ -102,13 +103,13 @@ class InternsInfo:
         except Exception as e:
             raise HTTPException(500, f"An error occurred: {str(e)}")
             
-    def deleteInternById(self,id:int):
+    def deleteInternById(self,name:str):
         query = sql.SQL(f"""
             delete from fastapi_demo.interns_details
-            where id = %s
+            where name = %s
         """)
         
-        values = (id,)
+        values = (name,)
         try:
             rows_affected, message = base_executor.executeDelete(query=query, values=values)
             if rows_affected > 0:
