@@ -1,5 +1,6 @@
 import psycopg2
 import pandas as pd
+from ...app import constants
 
 class BaseExecutor:
     def __init__(self, db_config):
@@ -38,12 +39,12 @@ class BaseExecutor:
             if get_as_packet:
                 # Convert to Pandas DataFrame
                 dataframe = pd.DataFrame(rows, columns=col_names)
-                return dataframe, "Query executed successfully."
+                return dataframe, constants.QUERY_EXECUTED_SUCCESS_MESSAGE
             else:
-                return rows, "Query executed successfully."
+                return rows, constants.QUERY_EXECUTED_SUCCESS_MESSAGE
 
         except psycopg2.Error as e:
-            return None, f"Database error: {e}"
+            return None, constants.DATABASE_ERROR_MESSAGE + f": {e}"
         finally:
             # Ensure resources are cleaned up
             if cursor:
@@ -72,11 +73,11 @@ class BaseExecutor:
             connection.commit()
 
             rows_affected = cursor.rowcount
-            return rows_affected, "Insert query executed successfully."
+            return rows_affected, constants.QUERY_INSERTED_SUCCESS_MESSAGE
         except psycopg2.Error as e:
             if connection:
                 connection.rollback()
-            return 0, f"Database error: {e}"
+            return 0, constants.DATABASE_ERROR_MESSAGE + f": {e}"
         finally:
             if cursor:
                 cursor.close()
@@ -105,11 +106,11 @@ class BaseExecutor:
 
             connection.commit()
 
-            return rows_affected, "Query executed successfully."
+            return rows_affected, constants.QUERY_EXECUTED_SUCCESS_MESSAGE
         except psycopg2.Error as e:
             if connection:
                 connection.rollback()
-            return 0, f"Database error: {e}"
+            return 0, constants.DATABASE_ERROR_MESSAGE + f": {e}"
         finally:
             if cursor:
                 cursor.close()
@@ -138,11 +139,11 @@ class BaseExecutor:
 
             connection.commit()
 
-            return rows_affected, "Query executed successfully."
+            return rows_affected, constants.QUERY_EXECUTED_SUCCESS_MESSAGE
         except psycopg2.Error as e:
             if connection:
                 connection.rollback()
-            return 0, f"Database error: {e}"
+            return 0, constants.DATABASE_ERROR_MESSAGE + f": {e}"
         finally:
             if cursor:
                 cursor.close()
