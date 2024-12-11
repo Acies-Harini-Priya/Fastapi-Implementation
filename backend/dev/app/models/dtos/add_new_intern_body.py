@@ -7,11 +7,6 @@ class AddNewInternBody(BaseModel):
     college_name: str
     description: str 
     hobbies: str
-    created_by: str
-    updated_by: str
-    created_at: str
-    updated_at: str
 
-    # image: str
 
 

@@ -38,8 +38,8 @@ class BaseExecutor:
 
             if get_as_packet:
                 # Convert to Pandas DataFrame
-                dataframe = pd.DataFrame(rows, columns=col_names)
-                return dataframe, constants.QUERY_EXECUTED_SUCCESS_MESSAGE
+                intern_dataframe = pd.DataFrame(rows, columns=col_names)
+                return intern_dataframe, constants.QUERY_EXECUTED_SUCCESS_MESSAGE
             else:
                 return rows, constants.QUERY_EXECUTED_SUCCESS_MESSAGE
 

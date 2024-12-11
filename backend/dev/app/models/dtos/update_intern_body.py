@@ -7,9 +7,5 @@ class UpdateInternBody(BaseModel):
     college_name: str
     description: str 
     hobbies: str
-    updated_by: str
-    updated_at: str
-    
-    # image: str
 
 

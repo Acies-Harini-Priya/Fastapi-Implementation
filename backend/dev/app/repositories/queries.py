@@ -15,8 +15,8 @@ class InternsQueries:
     INSERT_NEW_INTERN = sql.SQL("""
         insert into 
             fastapi_demo.interns_details
-            (name, mail_id, dob, college_name, description, hobbies, created_by, updated_by, created_at, updated_at)
-        values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            (name, mail_id, dob, college_name, description, hobbies)
+        values (%s, %s, %s, %s, %s, %s)
     """)
 
     UPDATE_INTERN_BY_NAME = sql.SQL("""
@@ -27,9 +27,7 @@ class InternsQueries:
             dob = %s,
             college_name = %s,
             description = %s,
-            hobbies = %s,
-            updated_by = %s,
-            updated_at = %s
+            hobbies = %s
         where name = %s
     """)
 
