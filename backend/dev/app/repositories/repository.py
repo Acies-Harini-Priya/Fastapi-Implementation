@@ -18,5 +18,5 @@ class InternsRepository:
     def update_intern(self, values):
         return self.base_executor.executeUpdate(query=InternsQueries.UPDATE_INTERN_BY_ID, values=values)
 
-    def delete_intern(self, name: str):
+    def delete_intern(self, id: int):
         return self.base_executor.executeDelete(query=InternsQueries.DELETE_INTERN_BY_ID, values=(id,))
