@@ -19,10 +19,10 @@ async def get_intern_by_name(name: str):
 async def add_intern(body: AddNewInternBody):
     return interns_service.add_new_intern(body)
 
-@router.put("/updateInternDetails/{name}")
-async def update_intern(name: str, body: UpdateInternBody):
-    return interns_service.update_intern_by_name(name, body)
+@router.put("/updateInternDetails/{id}")
+async def update_intern(id: int, body: UpdateInternBody):
+    return interns_service.update_intern_by_id(id, body)
 
-@router.delete("/deleteIntern/{name}")
-async def delete_intern(name: str):
-    return interns_service.delete_intern_by_name(name)
+@router.delete("/deleteIntern/{id}")
+async def delete_intern(id: int):
+    return interns_service.delete_intern_by_id(id)

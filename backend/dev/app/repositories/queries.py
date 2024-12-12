@@ -19,7 +19,7 @@ class InternsQueries:
         values (%s, %s, %s, %s, %s, %s)
     """)
 
-    UPDATE_INTERN_BY_NAME = sql.SQL("""
+    UPDATE_INTERN_BY_ID = sql.SQL("""
         update fastapi_demo.interns_details
         set 
             name = %s,
@@ -28,10 +28,10 @@ class InternsQueries:
             college_name = %s,
             description = %s,
             hobbies = %s
-        where name = %s
+        where id = %s
     """)
 
-    DELETE_INTERN_BY_NAME = sql.SQL("""
+    DELETE_INTERN_BY_ID = sql.SQL("""
         delete from fastapi_demo.interns_details
-        where name = %s
+        where id = %s
     """)
